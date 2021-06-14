@@ -1,1 +1,101 @@
-
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Track Your Expenses</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>The Expense Tracker</h1>
+      <h2><i>-Giving you reason to spend your money</i></h2>
+    </header>
+    <hr />
+    <container>
+      <div id="inputDiv">
+        <div id="inputH2Div">
+          <h2 id="inputH2">Add a new item:</h2>
+        </div>
+        <form action="submit">
+          <div id="leftDiv">
+            <div id="inputLabelsDiv">
+              <label for="nameInput">Name:</label>
+              <label for="dateInput">Date:</label>
+              <label for="amountInput">Amount:</label>
+              <label for="typeInput">Type:</label>
+            </div>
+            <div id="inputFieldsDiv">
+              <input type="text" id="nameInput" />
+              <input type="date" id="dateInput" />
+              <input type="number" id="amountInput" />
+              <select name="type" id="typeInput">
+                <option value="">--- Select Payment Method ---</option>
+                <option value="cash">Cash</option>
+                <option value="creditCard">Credit Card</option>
+                <option value="moneyTransfer">Direct Withdrawl</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+          <input type="submit" name="submitButton" id="submitButton" />
+        </form>
+      </div>
+      <hr id="verticalLineSeperator" width="2" size="350" />
+      <div id="outputDiv">
+        <div>
+          <h2 id="expensesH2">Expenses:</h2>
+        </div>
+        <table id="expenseTable">
+          <thead>
+            <tr>
+              <th class="tableType" id="thType">Type</th>
+              <th class="tableName" id="thName">Name</th>
+              <th class="tableDate" id="thDate">Date</th>
+              <th class="tableAmount" id="thAmount">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="tableType">Cash</td>
+              <td class="tableName">New Tires and Oil Change</td>
+              <td class="tableDate">12/12/2021</td>
+              <td class="tableAmount">50,000</td>
+            </tr>
+            <tr>
+              <td class="tableType">Credit Card</td>
+              <td class="tableName">Short</td>
+              <td class="tableDate">1/1/2021</td>
+              <td class="tableAmount">8</td>
+            </tr>
+            <tr>
+              <td class="tableType">Direct Withdrawl</td>
+              <td class="tableName">test</td>
+              <td class="tableDate">test</td>
+              <td class="tableAmount">test</td>
+            </tr>
+            <tr>
+              <td class="tableType">Other</td>
+              <td class="tableName">test</td>
+              <td class="tableDate">test</td>
+              <td class="tableAmount">test</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </container>
+    <footer>
+      <div>
+        Photo by
+        <a
+          href="https://unsplash.com/@thetalkinglens?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+          >Louie Martinez</a
+        >
+        on
+        <a
+          href="https://unsplash.com/s/photos/tokyo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+          >Unsplash</a
+        >
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
