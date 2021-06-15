@@ -45,18 +45,21 @@ function createDataEntry(inputFieldGroup) {
   newTableRow.insertAdjacentElement("beforeend", tableDataAmount);
 
   const tableDataContainingButton = document.createElement("td");
-  tableDataContainingButton.insertAdjacentElement("beforeend", createButton());
+  tableDataContainingButton.insertAdjacentElement(
+    "beforeend",
+    createButton(newTableRow)
+  );
   newTableRow.insertAdjacentElement("beforeend", tableDataContainingButton);
 
   return newTableRow;
 }
 
-function createButton() {
+function createButton(newTableRow) {
   const deleteButton = document.createElement("button");
   deleteButton.textContent = "x";
   deleteButton.classList.add("DeleteButton");
-  deleteButton.addEventListener("click", function () {
-    document.querySelector("tbody").deleteRow(this);
+  deleteButton.addEventListener("click", () => {
+    document.querySelector("tbody").deleteRow(`${newTableRow.rowIndex - 1}`);
   });
   return deleteButton;
 }
