@@ -1,84 +1,86 @@
 document.querySelector("#expenseForm").addEventListener("submit", addExpense);
 
 function addExpense(e) {
-    e.preventDefault();
+  e.preventDefault();
 
-    const inputFieldGroup = [document.querySelector("#whereInput"), document.querySelector("#dateInput"),
-    document.querySelector("#amountInput"), document.querySelector("#typeInput")];
+  const inputFieldGroup = [
+    document.querySelector("#whereInput"),
+    document.querySelector("#dateInput"),
+    document.querySelector("#amountInput"),
+    document.querySelector("#typeInput"),
+  ];
 
-    if (validateInputs(inputFieldGroup)) return;
+  if (isInputFieldsEmpty(inputFieldGroup)) return;
 
-    const dataEntry = makeTableRow(inputFieldGroup);
+  const dataEntry = createDataEntry(inputFieldGroup);
 
-   const tableNode = document.querySelector("#tableBody");
+  document
+    .querySelector("#tableBody")
+    .insertAdjacentElement("beforeend", dataEntry);
 
-    tableNode.insertAdjacentElement("beforeend", dataEntry);
-
-    clearInputFields(inputFieldGroup);
+  clearInputFields(inputFieldGroup);
 }
 
-function makeTableRow(inputFieldGroup) {
-    const newTR = document.createElement('tr');
-    
-    const tdType = document.createElement('td');
-    tdType.textContent = inputFieldGroup[3].value;
-    tdType.classList.add("tableType");
-    newTR.insertAdjacentElement("beforeend", tdType);
+function createDataEntry(inputFieldGroup) {
+  const newTableRow = document.createElement("tr");
 
-    const tdWhere = document.createElement('td');
-    tdWhere.textContent = inputFieldGroup[0].value;
-    tdWhere.classList.add("tableWhere");
-    newTR.insertAdjacentElement("beforeend", tdWhere);
+  const tableDataType = document.createElement("td");
+  tableDataType.textContent = inputFieldGroup[3].value;
+  tableDataType.classList.add("tableType");
+  newTableRow.insertAdjacentElement("beforeend", tableDataType);
 
-    const tdDate = document.createElement('td');
-    tdDate.textContent = inputFieldGroup[1].value;
-    tdDate.classList.add("tableDate");
-    newTR.insertAdjacentElement("beforeend", tdDate);
+  const tableDataWhere = document.createElement("td");
+  tableDataWhere.textContent = inputFieldGroup[0].value;
+  tableDataWhere.classList.add("tableWhere");
+  newTableRow.insertAdjacentElement("beforeend", tableDataWhere);
 
-    const tdAmount = document.createElement('td');
-    tdAmount.textContent = `$${inputFieldGroup[2].value}`;
-    tdAmount.classList.add("tableAmount");
-    newTR.insertAdjacentElement("beforeend", tdAmount);
+  const tableDataDate = document.createElement("td");
+  tableDataDate.textContent = inputFieldGroup[1].value;
+  tableDataDate.classList.add("tableDate");
+  newTableRow.insertAdjacentElement("beforeend", tableDataDate);
 
-    const tdDeleteButton = document.createElement('td');
-    tdDeleteButton.insertAdjacentElement("beforeend", createButton());
-    
-    newTR.insertAdjacentElement("beforeend", tdDeleteButton);
-    
-    return newTR;
+  const tableDataAmount = document.createElement("td");
+  tableDataAmount.textContent = `$${inputFieldGroup[2].value}`;
+  tableDataAmount.classList.add("tableAmount");
+  newTableRow.insertAdjacentElement("beforeend", tableDataAmount);
+
+  const tableDataContainingButton = document.createElement("td");
+  tableDataContainingButton.insertAdjacentElement("beforeend", createButton());
+  newTableRow.insertAdjacentElement("beforeend", tableDataContainingButton);
+
+  return newTableRow;
 }
 
-function createButton(newTR) {
-    const deleteButton = document.createElement("button");
-    deleteButton.textContent = "x";
-    deleteButton.classList.add("DeleteButton");
-    deleteButton.addEventListener("click", (newTR) => {
-        const index = newTR.rowIndex;
-        document.querySelector('tbody').deleteRow(index);
-    })
-    
-
-    return deleteButton;
+function createButton() {
+  const deleteButton = document.createElement("button");
+  deleteButton.textContent = "x";
+  deleteButton.classList.add("DeleteButton");
+  deleteButton.addEventListener("click", function () {
+    document.querySelector("tbody").deleteRow(this);
+  });
+  return deleteButton;
 }
 
-function validateInputs(inputFieldGroup){
-    let validate = 0;
+function isInputFieldsEmpty(inputFieldGroup) {
+  let validate = 0;
 
-    inputFieldGroup.forEach(function(input){
-        if (input.value === ""){
-            input.classList.toggle("invalidInput");
-            setTimeout(() =>{
-                input.classList.toggle("invalidInput");
-            }, 1000);
-            console.log("I am invalid");
-            validate = 1;
-        }
-    })
+  inputFieldGroup.forEach(function (input) {
+    if (input.value === "") {
+      input.classList.toggle("invalidInput");
+      setTimeout(() => {
+        input.classList.toggle("invalidInput");
+      }, 1000);
+      console.log("I am invalid");
+      validate = true;
+    }
+  });
 
-    return validate;
+  return validate;
 }
 
-function clearInputFields(arguments){
-    arguments.forEach( function (input) { input.value = "" });
-    arguments[0].focus();
+function clearInputFields(inputFieldGroup) {
+  inputFieldGroup.forEach(function (input) {
+    input.value = "";
+  });
+  inputFieldGroup[0].focus();
 }
