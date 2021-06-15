@@ -58,6 +58,15 @@ container {
   color: whitesmoke;
 }
 
+input,
+select {
+  background-color: rgba(245, 245, 245, 0.788);
+}
+
+.invalidInput {
+  background-color: rgba(139, 0, 0, 0.884);
+}
+
 #submitButton {
   width: 100px;
   margin-top: 25px;
@@ -84,7 +93,7 @@ container {
 }
 
 #thType,
-#thName,
+#thWhere,
 #thDate,
 #thAmount {
   text-align: center;
@@ -94,29 +103,40 @@ container {
   color: rgba(25, 25, 112, 0.788);
 }
 
-td {
+.tableType {
+  width: 215px;
+  text-align: center;
+  padding-right: 5px;
+  border-right: whitesmoke 1px solid;
   border-top: whitesmoke 1px solid;
 }
 
-.tableType {
-  width: 215px;
-  text-align: right;
-  padding-right: 5px;
-  border-right: whitesmoke 1px solid;
-}
-
-.tableName {
+.tableWhere {
   width: 180px;
+  text-align: center;
   border-right: whitesmoke 1px solid;
+  border-top: whitesmoke 1px solid;
+  text-transform: capitalize;
 }
 
 .tableDate {
   width: 78px;
+  text-align: center;
   border-right: whitesmoke 1px solid;
+  border-top: whitesmoke 1px solid;
 }
 
 .tableAmount {
   width: 75px;
+  text-align: center;
+  border-right: whitesmoke 1px solid;
+  border-top: whitesmoke 1px solid;
+}
+
+.DeleteButton {
+  border: none;
+  background: none;
+  color: red;
 }
 
 footer > div {

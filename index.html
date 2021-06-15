@@ -15,24 +15,24 @@
         <div id="inputH2Div">
           <h2 id="inputH2">Add a new item:</h2>
         </div>
-        <form action="submit">
+        <form action="submit" id="expenseForm">
           <div id="leftDiv">
             <div id="inputLabelsDiv">
-              <label for="nameInput">Name:</label>
+              <label for="whereInput">Where:</label>
               <label for="dateInput">Date:</label>
               <label for="amountInput">Amount:</label>
               <label for="typeInput">Type:</label>
             </div>
             <div id="inputFieldsDiv">
-              <input type="text" id="nameInput" />
+              <input type="text" id="whereInput" />
               <input type="date" id="dateInput" />
               <input type="number" id="amountInput" />
               <select name="type" id="typeInput">
                 <option value="">--- Select Payment Method ---</option>
-                <option value="cash">Cash</option>
-                <option value="creditCard">Credit Card</option>
-                <option value="moneyTransfer">Direct Withdrawl</option>
-                <option value="other">Other</option>
+                <option value="Cash">Cash</option>
+                <option value="Credit Card">Credit Card</option>
+                <option value="Debt">Debt</option>
+                <option value="Other">Other</option>
               </select>
             </div>
           </div>
@@ -48,37 +48,12 @@
           <thead>
             <tr>
               <th class="tableType" id="thType">Type</th>
-              <th class="tableName" id="thName">Name</th>
+              <th class="tableWhere" id="thWhere">Location</th>
               <th class="tableDate" id="thDate">Date</th>
               <th class="tableAmount" id="thAmount">Amount</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td class="tableType">Cash</td>
-              <td class="tableName">New Tires and Oil Change</td>
-              <td class="tableDate">12/12/2021</td>
-              <td class="tableAmount">50,000</td>
-            </tr>
-            <tr>
-              <td class="tableType">Credit Card</td>
-              <td class="tableName">Short</td>
-              <td class="tableDate">1/1/2021</td>
-              <td class="tableAmount">8</td>
-            </tr>
-            <tr>
-              <td class="tableType">Direct Withdrawl</td>
-              <td class="tableName">test</td>
-              <td class="tableDate">test</td>
-              <td class="tableAmount">test</td>
-            </tr>
-            <tr>
-              <td class="tableType">Other</td>
-              <td class="tableName">test</td>
-              <td class="tableDate">test</td>
-              <td class="tableAmount">test</td>
-            </tr>
-          </tbody>
+          <tbody id="tableBody"></tbody>
         </table>
       </div>
     </container>
