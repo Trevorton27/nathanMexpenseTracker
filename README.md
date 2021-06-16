@@ -12,4 +12,4 @@ This application is an expense tracker that allows the user to input the date, p
  
 
 #### Author
-Nathan McCraw -- Inspiring Software Developer [LinkedIn](https://www.linkedin.com/in/nathan-mccraw-5291535b/) [Peronal Website - In Production]
+Nathan McCraw -- Inspiring Software Developer [LinkedIn](https://www.linkedin.com/in/nathan-mccraw-5291535b/) [Personal Website - In Production]
