@@ -18,16 +18,18 @@
         <form action="submit" id="expenseForm">
           <div id="leftDiv">
             <div id="inputLabelsDiv">
+              <label for="whatInput">What:</label>
               <label for="whereInput">Where:</label>
               <label for="dateInput">Date:</label>
               <label for="amountInput">Amount:</label>
               <label for="typeInput">Type:</label>
             </div>
             <div id="inputFieldsDiv">
-              <input type="text" id="whereInput" />
-              <input type="date" id="dateInput" />
-              <input type="number" id="amountInput" />
-              <select name="type" id="typeInput">
+              <input type="text"id="whatInput" required >
+              <input type="text" id="whereInput" required  />
+              <input type="date" id="dateInput" required  />
+              <input type="number" id="amountInput" step="any" required  />
+              <select name="type" id="typeInput"  required>
                 <option value="">--- Select Payment Method ---</option>
                 <option value="Cash">Cash</option>
                 <option value="Credit Card">Credit Card</option>
@@ -47,10 +49,11 @@
         <table id="expenseTable">
           <thead>
             <tr>
-              <th class="tableType" id="thType">Type</th>
+              <th class="tableItem" id="thItem">Item</th>
               <th class="tableWhere" id="thWhere">Location</th>
               <th class="tableDate" id="thDate">Date</th>
               <th class="tableAmount" id="thAmount">Amount</th>
+              <th class="tableType" id="thType">Payment Type</th>
             </tr>
           </thead>
           <tbody id="tableBody"></tbody>

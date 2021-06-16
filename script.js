@@ -1,89 +1,114 @@
-document.querySelector("#expenseForm").addEventListener("submit", addExpense);
-
-function addExpense(e) {
+const expenseArray = JSON.parse(localStorage.getItem('expenseArray')) || [];
+document.querySelector('#expenseForm').addEventListener('submit', (e) => {
   e.preventDefault();
+  const itemInput = document.querySelector('#whatInput');
+  const locationInput = document.querySelector('#whereInput');
+  const dateInput = document.querySelector('#dateInput');
+  const amountInput = document.querySelector('#amountInput');
+  const paymentTypeInput = document.querySelector('#typeInput');
 
-  const inputFieldGroup = [
-    document.querySelector("#whereInput"),
-    document.querySelector("#dateInput"),
-    document.querySelector("#amountInput"),
-    document.querySelector("#typeInput"),
-  ];
+  if (
+    !itemInput.value ||
+    !amountInput.value ||
+    !dateInput.value ||
+    !locationInput.value ||
+    !paymentTypeInput.value
+  ) {
+    alert('Please fill out all input fields before submitting. ');
+    return;
+  }
 
-  if (isInputFieldsEmpty(inputFieldGroup)) return;
+  const newExpense = {
+    id: Date.now(),
+    item: itemInput.value,
+    location: locationInput.value,
+    date: formatDate(dateInput.value),
+    amount: '$' + formatAmount(amountInput.value),
+    paymentType: paymentTypeInput.value
+  };
 
-  const dataEntry = createDataEntry(inputFieldGroup);
+  addExpense(newExpense);
+  document.getElementById('expenseForm').reset();
+});
 
-  document
-    .querySelector("#tableBody")
-    .insertAdjacentElement("beforeend", dataEntry);
-
-  clearInputFields(inputFieldGroup);
+function addExpense(expense) {
+  createExpenseRow(expense);
+  expenseArray.push(expense);
+  pushToLocalStorage(expenseArray);
 }
 
-function createDataEntry(inputFieldGroup) {
-  const newTableRow = document.createElement("tr");
-
-  const tableDataType = document.createElement("td");
-  tableDataType.textContent = inputFieldGroup[3].value;
-  tableDataType.classList.add("tableType");
-  newTableRow.insertAdjacentElement("beforeend", tableDataType);
-
-  const tableDataWhere = document.createElement("td");
-  tableDataWhere.textContent = inputFieldGroup[0].value;
-  tableDataWhere.classList.add("tableWhere");
-  newTableRow.insertAdjacentElement("beforeend", tableDataWhere);
-
-  const tableDataDate = document.createElement("td");
-  tableDataDate.textContent = inputFieldGroup[1].value;
-  tableDataDate.classList.add("tableDate");
-  newTableRow.insertAdjacentElement("beforeend", tableDataDate);
-
-  const tableDataAmount = document.createElement("td");
-  tableDataAmount.textContent = `$${inputFieldGroup[2].value}`;
-  tableDataAmount.classList.add("tableAmount");
-  newTableRow.insertAdjacentElement("beforeend", tableDataAmount);
-
-  const tableDataContainingButton = document.createElement("td");
-  tableDataContainingButton.insertAdjacentElement(
-    "beforeend",
-    createButton(newTableRow)
-  );
-  newTableRow.insertAdjacentElement("beforeend", tableDataContainingButton);
-
-  return newTableRow;
+function pushToLocalStorage(array) {
+  localStorage.setItem('expenseArray', JSON.stringify(array));
 }
 
-function createButton(newTableRow) {
-  const deleteButton = document.createElement("button");
-  deleteButton.textContent = "x";
-  deleteButton.classList.add("DeleteButton");
-  deleteButton.addEventListener("click", () => {
-    document.querySelector("tbody").deleteRow(`${newTableRow.rowIndex - 1}`);
+function createExpenseRow(expense) {
+  const newTableRow = document.createElement('tr');
+  document.querySelector('#tableBody').appendChild(newTableRow);
+
+  const itemCell = createCell(expense.item);
+  newTableRow.appendChild(itemCell);
+
+  const locationCell = createCell(expense.location);
+  newTableRow.appendChild(locationCell);
+
+  const dateCell = createCell(expense.date);
+  newTableRow.appendChild(dateCell);
+
+  const amountCell = createCell(expense.amount);
+  newTableRow.appendChild(amountCell);
+
+  const paymentTypeCell = createCell(expense.paymentType);
+  newTableRow.appendChild(paymentTypeCell);
+
+  const deleteCell = document.createElement('td');
+  const deleteButton = createDeleteButton(expense);
+  newTableRow.appendChild(deleteCell);
+  deleteCell.appendChild(deleteButton);
+}
+
+function createCell(expense) {
+  const dataCell = document.createElement('td');
+  dataCell.textContent = expense;
+  return dataCell;
+}
+
+function createDeleteButton(expense) {
+  const deleteButton = document.createElement('button');
+  deleteButton.textContent = 'x';
+  deleteButton.classList.add('DeleteButton');
+  deleteButton.addEventListener('click', () => {
+    deleteExpense(deleteButton, expense.id);
   });
   return deleteButton;
 }
 
-function isInputFieldsEmpty(inputFieldGroup) {
-  let validate = 0;
-
-  inputFieldGroup.forEach(function (input) {
-    if (input.value === "") {
-      input.classList.toggle("invalidInput");
-      setTimeout(() => {
-        input.classList.toggle("invalidInput");
-      }, 1000);
-      console.log("I am invalid");
-      validate = true;
+const deleteExpense = (deleteButton, id) => {
+  deleteButton.parentElement.parentElement.remove();
+  for (let i = 0; i < expenseArray.length; i++) {
+    if (expenseArray[i].id === id) {
+      expenseArray.splice(i, 1);
+      pushToLocalStorage(expenseArray);
+      calculateTotalExpense();
     }
-  });
+  }
+};
 
-  return validate;
+function formatDate(dateInput) {
+  let date = new Date(dateInput);
+  const options = {
+    dateStyle: 'medium',
+    timeZone: 'UTC'
+  };
+  return new Intl.DateTimeFormat('en-US', options).format(date);
 }
 
-function clearInputFields(inputFieldGroup) {
-  inputFieldGroup.forEach(function (input) {
-    input.value = "";
-  });
-  inputFieldGroup[0].focus();
+function formatAmount(amount) {
+  return (amount = parseFloat(amount).toFixed(2));
 }
+
+window.addEventListener('load', (e) => {
+  e.preventDefault();
+  expenseArray.forEach((expense) => {
+    createExpenseRow(expense);
+  });
+});

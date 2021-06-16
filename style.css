@@ -1,5 +1,5 @@
 body {
-  background-image: url("photos/ExpenseTrackerBackground.jpg");
+  background-image: url('photos/ExpenseTrackerBackground.jpg');
   background-size: cover;
   background-position: center;
 }
@@ -91,7 +91,7 @@ select {
   border: solid 1px black;
   border-radius: 5px;
 }
-
+#thItem,
 #thType,
 #thWhere,
 #thDate,
@@ -101,6 +101,8 @@ select {
   font-size: large;
   background-color: rgba(245, 245, 245, 0.788);
   color: rgba(25, 25, 112, 0.788);
+  padding-left: 1em;
+  padding-right: 1em;
 }
 
 .tableType {
@@ -131,6 +133,10 @@ select {
   text-align: center;
   border-right: whitesmoke 1px solid;
   border-top: whitesmoke 1px solid;
+}
+
+td {
+  text-align: center;
 }
 
 .DeleteButton {
